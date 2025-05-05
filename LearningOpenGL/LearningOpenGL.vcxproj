@@ -71,28 +71,32 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;C:\SDKs\GLM\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Include</IncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;C:\SDKs\GLM\include;C:\SDKs\STB\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Include</IncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;C:\SDKs\GLM\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Include</IncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;C:\SDKs\GLM\include;C:\SDKs\STB\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Include</IncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -161,24 +165,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EBO.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="stb_image.c" />
-    <ClCompile Include="VAO.cpp" />
-    <ClCompile Include="VBO.cpp" />
+    <ClCompile Include="Source\EBO.cpp" />
+    <ClCompile Include="Source\glad.c" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\stb_image.c" />
+    <ClCompile Include="Source\VAO.cpp" />
+    <ClCompile Include="Source\VBO.cpp" />
+    <ClCompile Include="Source\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EBO.h" />
-    <ClInclude Include="PCH.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="VAO.h" />
-    <ClInclude Include="VBO.h" />
+    <ClInclude Include="Include\EBO.h" />
+    <ClInclude Include="Include\PCH.h" />
+    <ClInclude Include="Include\Shader.h" />
+    <ClInclude Include="Include\VAO.h" />
+    <ClInclude Include="Include\VBO.h" />
+    <ClInclude Include="Include\Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="sample.frag" />
-    <None Include="sample.vert" />
+    <None Include="Shaders\sample.frag" />
+    <None Include="Shaders\sample.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\mario.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

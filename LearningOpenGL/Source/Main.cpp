@@ -3,14 +3,16 @@
 
 #include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
+#include <STB/stb_image.h>
 
 #include "Shader.h"
 #include "VBO.h"
 #include "EBO.h"
 #include "VAO.h"
+#include "Texture.h"
 
 
-const unsigned int window_width = 960;
+const unsigned int window_width = 540;
 const unsigned int window_height = 540;
 
 
@@ -27,10 +29,10 @@ void ProcessInput(GLFWwindow* window)
 
 
 float vertices[] = {
-	 0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,// top right
-	 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,// bottom right
-	-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,// bottom left
-	-0.5f,  0.5f, 0.0f,  0.0f, 0.0f, 0.0f // top left 
+	 0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,// top right
+	 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,// bottom right
+	-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,// bottom left
+	-0.5f,  0.5f, 0.0f,  0.0f, 0.0f, 0.0f,  0.0f, 1.0f // top left 
 };
 
 unsigned int indices[] = {  // note that we start from 0!
@@ -77,8 +79,9 @@ int main()
 	VBO vbo = VBO(vertices, sizeof(vertices));
 	EBO ebo = EBO(indices, sizeof(indices));
 
-	vao.LinkAttribute(vbo, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*) 0);
-	vao.LinkAttribute(vbo, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*) (3 * sizeof(float)));
+	vao.LinkAttribute(vbo, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*) 0);
+	vao.LinkAttribute(vbo, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*) (3 * sizeof(float)));
+	vao.LinkAttribute(vbo, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*) (6 * sizeof(float)));
 
 	vao.Unbind();
 	vbo.Unbind();
@@ -86,9 +89,17 @@ int main()
 	
 
 	//ShaderCompilation
-	Shader shader = Shader("sample.vert", "sample.frag");
+	Shader shader = Shader("Shaders/sample.vert", "Shaders/sample.frag");
 
 	GLuint uniformID = glGetUniformLocation(shader.ID, "scale");
+
+
+	//Textures
+	stbi_set_flip_vertically_on_load(true);
+
+	Texture texture = Texture("Textures/mario.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);	
+
+	texture.Link(shader, "tex0", 0);
 
 
 	//RenderLoop
@@ -103,7 +114,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		shader.Activate();
-		glUniform1f(uniformID, 0.5f);
+		glUniform1f(uniformID, 1.0f);
+		glBindTexture(GL_TEXTURE_2D, texture.ID);
 		vao.Bind();
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -120,6 +132,7 @@ int main()
 	vao.Delete();
 	vbo.Delete();
 	ebo.Delete();
+	texture.Delete();
 	shader.Delete();
 
 	glfwDestroyWindow(window);

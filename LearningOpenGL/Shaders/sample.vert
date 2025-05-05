@@ -2,13 +2,16 @@
 
 layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 aCol;
+layout(location = 2) in vec2 aTex;
 
 uniform float scale;
 
 out vec3 color;
+out vec2 uv;
 
 void main() 
 { 
 	gl_Position = vec4(aPos.x * scale, aPos.y * scale, aPos.z * scale, 1.0);
 	color = aCol;
+	uv = aTex;
 }
