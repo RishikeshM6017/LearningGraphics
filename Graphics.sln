@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LearningVulkan", "LearningVulkan\LearningVulkan.vcxproj", "{8C564191-1189-4A01-A36F-4D5EA5A20EEB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LearningOpenGL", "LearningOpenGL\LearningOpenGL.vcxproj", "{3B70AF49-5E62-46AD-82EC-946647DDD6A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,8 +17,15 @@ Global
 		{8C564191-1189-4A01-A36F-4D5EA5A20EEB}.Debug|x64.Build.0 = Debug|x64
 		{8C564191-1189-4A01-A36F-4D5EA5A20EEB}.Release|x64.ActiveCfg = Release|x64
 		{8C564191-1189-4A01-A36F-4D5EA5A20EEB}.Release|x64.Build.0 = Release|x64
+		{3B70AF49-5E62-46AD-82EC-946647DDD6A3}.Debug|x64.ActiveCfg = Debug|x64
+		{3B70AF49-5E62-46AD-82EC-946647DDD6A3}.Debug|x64.Build.0 = Debug|x64
+		{3B70AF49-5E62-46AD-82EC-946647DDD6A3}.Release|x64.ActiveCfg = Release|x64
+		{3B70AF49-5E62-46AD-82EC-946647DDD6A3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B30DD8B-ADF0-4C19-9915-4357F0D54F5E}
 	EndGlobalSection
 EndGlobal
