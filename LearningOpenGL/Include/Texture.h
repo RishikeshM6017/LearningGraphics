@@ -11,7 +11,7 @@ public:
 	Texture(const char* image, GLenum textureType, GLenum slot, GLenum format, GLenum pixelType);
 
 
-	void Link(Shader shader, const char* uniform, GLuint unit);
+	void Link(Shader &shader, const char* uniform, GLuint unit);
 	void Bind();
 	void Unbind();
 	void Delete();

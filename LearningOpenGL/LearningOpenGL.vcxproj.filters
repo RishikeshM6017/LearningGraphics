@@ -48,6 +48,9 @@
     <ClCompile Include="Source\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\EBO.h">
@@ -68,6 +71,9 @@
     <ClInclude Include="Include\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\sample.vert">
@@ -79,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\mario.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\brick.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>
