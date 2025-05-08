@@ -5,12 +5,14 @@ in vec2 uv;
 in vec3 normal;
 in vec3 currentPos;
 
-out vec4 fragColor;
-
-uniform sampler2D tex0;
+uniform sampler2D albedoTex;
+uniform sampler2D specularTex;
 uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 cameraPos;
+
+out vec4 fragColor;
+
 
 void main() 
 { 
@@ -27,5 +29,5 @@ void main()
 	float specular = specularAmount * specularLight;
 
 
-	fragColor = texture(tex0, uv) * lightColor * (diffuse + ambient + specular); 
+	fragColor = (texture(albedoTex, uv) * (diffuse + ambient) + texture(specularTex, uv).r * specular) * lightColor; 
 }

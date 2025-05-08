@@ -193,6 +193,8 @@
   <ItemGroup>
     <Image Include="Textures\brick.png" />
     <Image Include="Textures\mario.png" />
+    <Image Include="Textures\planks.png" />
+    <Image Include="Textures\planks_specular.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
