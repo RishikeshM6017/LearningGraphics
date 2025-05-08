@@ -14,6 +14,7 @@
 #include "VAO.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "Mesh.h"
 
 
 const unsigned int window_width = 540;
@@ -32,12 +33,12 @@ void ProcessInput(GLFWwindow* window)
 }
 
 
-GLfloat meshVertices[] =
-{ //     COORDINATES     /        COLORS        /    TexCoord    /       NORMALS     //
-	-1.0f, 0.0f,  1.0f,		0.0f, 0.0f, 0.0f,		0.0f, 0.0f,		0.0f, 1.0f, 0.0f,
-	-1.0f, 0.0f, -1.0f,		0.0f, 0.0f, 0.0f,		0.0f, 1.0f,		0.0f, 1.0f, 0.0f,
-	 1.0f, 0.0f, -1.0f,		0.0f, 0.0f, 0.0f,		1.0f, 1.0f,		0.0f, 1.0f, 0.0f,
-	 1.0f, 0.0f,  1.0f,		0.0f, 0.0f, 0.0f,		1.0f, 0.0f,		0.0f, 1.0f, 0.0f
+Vertex meshVertices[] =
+{ //COORDINATES							  COLORS					   NORMALS						UV
+	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
+	Vertex{glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+	Vertex{glm::vec3( 1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
 };
 
 GLuint meshIndices[] =
@@ -46,16 +47,16 @@ GLuint meshIndices[] =
 	0, 2, 3
 };
 
-GLfloat lightVertices[] =
-{ //     COORDINATES     //
-	-0.1f, -0.1f,  0.1f,
-	-0.1f, -0.1f, -0.1f,
-	 0.1f, -0.1f, -0.1f,
-	 0.1f, -0.1f,  0.1f,
-	-0.1f,  0.1f,  0.1f,
-	-0.1f,  0.1f, -0.1f,
-	 0.1f,  0.1f, -0.1f,
-	 0.1f,  0.1f,  0.1f
+Vertex lightVertices[] =
+{ //COORDINATES
+	Vertex{glm::vec3(-0.1f, -0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f, -0.1f, -0.1f)},
+	Vertex{glm::vec3( 0.1f, -0.1f, -0.1f)},
+	Vertex{glm::vec3( 0.1f, -0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f,  0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f,  0.1f, -0.1f)},
+	Vertex{glm::vec3( 0.1f,  0.1f, -0.1f)},
+	Vertex{glm::vec3( 0.1f,  0.1f,  0.1f)}
 };
 
 GLuint lightIndices[] =
@@ -107,40 +108,38 @@ int main()
 	}
 	
 
-	//Mesh
+	//Textures
+	Texture meshTextures[] =
+	{
+		Texture("Textures/planks.png",			"albedo",	0, GL_RGBA, GL_UNSIGNED_BYTE),
+		Texture("Textures/planks_specular.png", "specular", 1, GL_RED,	GL_UNSIGNED_BYTE)
+	};
+
+
+	//MeshShader
 	Shader meshShader = Shader("Shaders/sample.vert", "Shaders/sample.frag");
 	
-	VAO meshVAO = VAO();
-	meshVAO.Bind();
 
-	VBO meshVBO = VBO(meshVertices, sizeof(meshVertices));
-	EBO meshEBO = EBO(meshIndices, sizeof(meshIndices));
+	//Mesh
+	std::vector<Vertex>  vertices(meshVertices, meshVertices + sizeof(meshVertices) / sizeof(Vertex));
+	std::vector<GLuint>  indices (meshIndices,  meshIndices  + sizeof(meshIndices)  / sizeof(GLuint));
+	std::vector<Texture> textures(meshTextures, meshTextures + sizeof(meshTextures) / sizeof(Texture));
 
-	meshVAO.LinkAttribute(meshVBO, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*) 0);
-	meshVAO.LinkAttribute(meshVBO, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*) (3 * sizeof(float)));
-	meshVAO.LinkAttribute(meshVBO, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*) (6 * sizeof(float)));
-	meshVAO.LinkAttribute(meshVBO, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*) (8 * sizeof(float)));
-
-	meshVAO.Unbind();
-	meshVBO.Unbind();
-	meshEBO.Unbind();
+	Mesh mesh(vertices, indices, textures);
 
 
-	//Light
+	//LightShader
 	Shader lightShader("Shaders/light.vert", "Shaders/light.frag");
 	
-	VAO lightVAO = VAO();
-	lightVAO.Bind();
 
-	VBO lightVBO = VBO(lightVertices, sizeof(lightVertices));
-	EBO lightEBO = EBO(lightIndices, sizeof(lightIndices));
+	//Light
+	std::vector<Vertex> lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
+	std::vector<GLuint> lightInd  (lightIndices,  lightIndices  + sizeof(lightIndices)  / sizeof(GLuint));
 
-	lightVAO.LinkAttribute(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*) 0);
-	lightVAO.Unbind();
-	lightVBO.Unbind();
-	lightEBO.Unbind();
+	Mesh light(lightVerts, lightInd, textures);
 
 
+	//StaticUniforms
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos	 = glm::vec3(0.5f, 0.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
@@ -159,16 +158,6 @@ int main()
 	glUniformMatrix4fv(glGetUniformLocation(meshShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(meshModel));
 	glUniform4f(glGetUniformLocation(meshShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(meshShader.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-
-
-	//Textures
-	stbi_set_flip_vertically_on_load(true);
-
-	Texture albedoTexture = Texture("Textures/planks.png", GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE);	
-	albedoTexture.Link(meshShader, "albedoTex", 0);
-
-	Texture specularTexture = Texture("Textures/planks_specular.png", GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE);
-	specularTexture.Link(meshShader, "specularTex", 1);
 
 
 	//Camera
@@ -192,19 +181,11 @@ int main()
 
 
 		//DrawMesh
-		meshShader.Activate();
-		glUniform3f(glGetUniformLocation(meshShader.ID, "cameraPos"), camera.position.x, camera.position.y, camera.position.z);
-		camera.Link(meshShader, "camera");
-		albedoTexture.Bind();
-		specularTexture.Bind();
-		meshVAO.Bind();
-		glDrawElements(GL_TRIANGLES, sizeof(meshIndices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+		mesh.Draw(meshShader, camera);
+
 
 		//DrawLight
-		lightShader.Activate();
-		camera.Link(lightShader, "camera");
-		lightVAO.Bind();
-		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+		light.Draw(lightShader, camera);
 
 
 		//SwapBuffers
@@ -215,16 +196,8 @@ int main()
 		glfwPollEvents();
 	}
 
-	meshVAO.Delete();
-	meshVBO.Delete();
-	meshEBO.Delete();
-	albedoTexture.Delete();
-	specularTexture.Delete();
-	meshShader.Delete();
 
-	lightVAO.Delete();
-	lightVBO.Delete();
-	lightEBO.Delete();
+	meshShader.Delete();
 	lightShader.Delete();
 
 	glfwDestroyWindow(window);

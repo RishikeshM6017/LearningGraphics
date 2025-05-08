@@ -169,6 +169,7 @@
     <ClCompile Include="Source\EBO.cpp" />
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\stb_image.c" />
     <ClCompile Include="Source\VAO.cpp" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Camera.h" />
     <ClInclude Include="Include\EBO.h" />
+    <ClInclude Include="Include\Mesh.h" />
     <ClInclude Include="Include\PCH.h" />
     <ClInclude Include="Include\Shader.h" />
     <ClInclude Include="Include\VAO.h" />
