@@ -19,7 +19,7 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{d1232074-123b-4ffc-bce1-4dbbb96236de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Models">
+    <Filter Include="Resource Files\Meshes">
       <UniqueIdentifier>{7c64e895-1a39-464f-be55-2145cc6a6bcd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -54,6 +54,9 @@
     <ClCompile Include="Source\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\EBO.h">
@@ -80,6 +83,9 @@
     <ClInclude Include="Include\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\sample.vert">
@@ -94,18 +100,30 @@
     <None Include="Shaders\light.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="Meshes\bunny.bin">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="Meshes\bunny.gltf">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\mario.png">
+    <Image Include="Textures\mario_albedo.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="Textures\brick.png">
+    <Image Include="Textures\brick_albedo.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="Textures\planks_specular.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="Textures\planks.png">
+    <Image Include="Textures\planks_albedo.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\bunny_albedo.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\bunny_specular.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

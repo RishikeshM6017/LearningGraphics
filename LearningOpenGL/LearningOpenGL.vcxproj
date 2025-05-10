@@ -75,28 +75,28 @@
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;C:\SDKs\JSON\include</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)Include</IncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;C:\SDKs\JSON\include</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)Include</IncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;C:\SDKs\JSON\include</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)Include</IncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\SDKs\STB\include;C:\SDKs\GLM\include;C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;C:\SDKs\JSON\include</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -170,6 +170,7 @@
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\Model.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\stb_image.c" />
     <ClCompile Include="Source\VAO.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Include\Camera.h" />
     <ClInclude Include="Include\EBO.h" />
     <ClInclude Include="Include\Mesh.h" />
+    <ClInclude Include="Include\Model.h" />
     <ClInclude Include="Include\PCH.h" />
     <ClInclude Include="Include\Shader.h" />
     <ClInclude Include="Include\VAO.h" />
@@ -187,15 +189,19 @@
     <ClInclude Include="Include\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Meshes\bunny.bin" />
+    <None Include="Meshes\bunny.gltf" />
     <None Include="Shaders\light.frag" />
     <None Include="Shaders\light.vert" />
     <None Include="Shaders\sample.frag" />
     <None Include="Shaders\sample.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\brick.png" />
-    <Image Include="Textures\mario.png" />
-    <Image Include="Textures\planks.png" />
+    <Image Include="Textures\brick_albedo.png" />
+    <Image Include="Textures\bunny_albedo.png" />
+    <Image Include="Textures\bunny_specular.png" />
+    <Image Include="Textures\mario_albedo.png" />
+    <Image Include="Textures\planks_albedo.png" />
     <Image Include="Textures\planks_specular.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

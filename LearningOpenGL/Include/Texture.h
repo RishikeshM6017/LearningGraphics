@@ -8,7 +8,7 @@
 class Texture
 {
 public:
-	Texture(const char* image, const char* textureType, GLuint slot, GLenum format, GLenum pixelType);
+	Texture(const char* image, const char* textureType, GLuint slot);
 
 
 	void Link(Shader &shader, const char* uniform, GLuint unit);

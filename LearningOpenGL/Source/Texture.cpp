@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-Texture::Texture(const char* imagePath, const char* textureType, GLuint slot, GLenum format, GLenum pixelType)
+Texture::Texture(const char* imagePath, const char* textureType, GLuint slot)
 {
 	type = textureType;
 	unit = slot;
@@ -21,7 +21,13 @@ Texture::Texture(const char* imagePath, const char* textureType, GLuint slot, GL
 	glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, format, pixelType, bytes);
+	switch (imgChannels)
+	{
+		case 4: glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes); break;
+		case 3: glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_RGB,  GL_UNSIGNED_BYTE, bytes); break;
+		case 1: glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_RED,  GL_UNSIGNED_BYTE, bytes); break;
+		default: throw std::invalid_argument("Automatic Texture Type Recognition Failed");
+	}
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
