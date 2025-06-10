@@ -11,26 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\Engine.cpp" />
-    <ClCompile Include="Source\Logger.cpp" />
-    <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\PCH.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PCH.h</PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PCH.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Source\Platform.cpp" />
-    <ClCompile Include="Source\VkUtility.cpp" />
+    <ClInclude Include="Include\Application.h" />
+    <ClInclude Include="Include\PCH.h" />
+    <ClInclude Include="Include\Renderer.h" />
+    <ClInclude Include="Include\VkUtility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Application.h" />
-    <ClInclude Include="Include\Engine.h" />
-    <ClInclude Include="Include\Logger.h" />
-    <ClInclude Include="Include\PCH.h" />
-    <ClInclude Include="Include\Platform.h" />
-    <ClInclude Include="Include\VkUtility.h" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\PCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer.cpp" />
+    <ClCompile Include="Source\VkUtility.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

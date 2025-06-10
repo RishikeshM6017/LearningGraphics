@@ -2,18 +2,31 @@
 
 #include "PCH.h"
 
-#include "Logger.h"
+#include "VkUtility.h"
+#include "Renderer.h"
 
 class Application
 {
 public:
-	Application(GLFWwindow* window);
+	Application();
+	~Application();
+
+public:
+	void Initialize();
+	void Run();
+	void Shutdown();
 
 private:
-	void MainLoop();
+	//Renderer*   renderer = NULL;
+	GLFWwindow* window   = NULL;
 
-private:
-	GLFWwindow* window;
-	Logger* logger;
+	const int window_width  = 540;
+	const int window_height = 540;
+
+	//TODO: Move logic and members to Renderer
+	VkInstance		 instance		= VK_NULL_HANDLE;
+	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+	VkDevice		 device			= VK_NULL_HANDLE;
+	VkSurfaceKHR	 surface		= VK_NULL_HANDLE;
 };
 

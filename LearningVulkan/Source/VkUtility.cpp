@@ -1,61 +1,56 @@
 #include "PCH.h"
-
 #include "VkUtility.h"
 
-vk::Result VkUtility::CreateInstance(bool debug, const char* appName, vk::Instance instance)
+#define VK_TEST(x) assert(x == VK_SUCCESS)
+
+#define VK_CHECK(x, msg) if (x!= VK_SUCCESS) printf(msg);
+
+VkResult Vulkan::CreateInstance(VkApplicationInfo* pAppInfo, Vector<const char*> layers, Vector<const char*> extensions, VkInstance* pInstance)
 {
-    if (debug) std::cout << "Creating Vulkan Instance\n\n";
+    VkInstanceCreateInfo instanceInfo = {};
+    instanceInfo.sType                      = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+    instanceInfo.pNext                      = nullptr;
+    instanceInfo.flags                      = 0;
+    instanceInfo.pApplicationInfo           = pAppInfo;
+    instanceInfo.enabledLayerCount          = U32(layers.size());
+    instanceInfo.ppEnabledLayerNames        = layers.data();
+    instanceInfo.enabledExtensionCount      = U32(extensions.size());
+    instanceInfo.ppEnabledExtensionNames    = extensions.data();
 
-    //Vulkan Version
-    U32 version = 0;
-    vkEnumerateInstanceVersion(&version);
+    return vkCreateInstance(&instanceInfo, nullptr, pInstance);
+}
 
-    DEBUG_MESSAGE(debug, "System Supports Vulkan\n"); 
-    DEBUG_MESSAGE(debug, "Variant: " << VK_API_VERSION_VARIANT(version) << '\n');
-    DEBUG_MESSAGE(debug, "Major:   " << VK_API_VERSION_MAJOR(version)   << '\n');
-    DEBUG_MESSAGE(debug, "Minor:   " << VK_API_VERSION_MINOR(version)   << '\n');
-    DEBUG_MESSAGE(debug, "Patch:   " << VK_API_VERSION_PATCH(version)   << '\n\n');
+VkResult Vulkan::PickPhysicalDevice(VkInstance instance, VkPhysicalDevice* pPhysicalDevice)
+{
+    U32 physicalDeviceCount = 0;
+    vkEnumeratePhysicalDevices(instance, &physicalDeviceCount, nullptr);
 
-    version &= ~(0xFFFU);
+    Vector<VkPhysicalDevice> physicalDevices(physicalDeviceCount);
+    vkEnumeratePhysicalDevices(instance, &physicalDeviceCount, physicalDevices.data());
 
-    //Application Info
-    vk::ApplicationInfo appInfo = vk::ApplicationInfo
-    (
-        appName,
-        version,
-        "Vulkan Engine",
-        VK_MAKE_API_VERSION(0, 1, 0, 0),
-        NULL
-    );
-
-    //Get Required Extensions
-    U32 glfwExtensionCount = 0;
-    const char** glfwExtensions;
-    glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-
-    std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
-
-    if (debug)
+    for (const auto& physicalDevice : physicalDevices)
     {
-        std::cout << "Requested Extensions:\n";
-        for (const char* extensionName : extensions)
-        {
-            std::cout << '\t' << extensionName << '\n';
-        }
-        std::cout << '\n';
+        return VK_SUCCESS;
     }
 
+    *pPhysicalDevice = physicalDevices[0];
 
-    //Create Instance
-    vk::InstanceCreateInfo instanceInfo = vk::InstanceCreateInfo
-    (
-        vk::InstanceCreateFlags(),
-        &appInfo,
-        0,
-        nullptr,
-        U32(extensions.size()),
-        extensions.data()
-    );
+    return VK_SUBOPTIMAL_KHR;
+}
 
-    return vk::createInstance(&instanceInfo, nullptr, &instance, nullptr);
+Vector<const char*> Vulkan::GetRequiredInstanceExtensions()
+{
+    Vector<const char*> extensions = { "VK_LAYER_KHRONOS_validation" };
+
+    return extensions;
+}
+
+Vector<const char*> Vulkan::GetRequiredInstanceLayers()
+{
+    Vector<const char*> extensions = {};
+
+    U32 glfwExtensionCount = 0;
+    const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+    return Vector<const char*>();
 }
