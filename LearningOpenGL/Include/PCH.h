@@ -2,7 +2,10 @@
 
 #include <stdio.h>
 
+#include <fstream>
+#include <sstream>
 #include <vector>
+#include <string>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -24,8 +27,18 @@ using F64 = double;
 using B8  = uint8_t;
 using B32 = uint32_t;
 
+using IOS = std::ios;
+
 template <typename T>
 using Vector = std::vector<T>;
+
+using String = std::string;
+
+using StringStream = std::stringstream;
+
+using InputFileStream = std::ifstream;
+
+using OutputFileStream = std::ofstream;
 
 using Vector3 = glm::vec3;
 

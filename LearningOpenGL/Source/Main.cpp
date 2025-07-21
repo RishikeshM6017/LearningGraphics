@@ -1,5 +1,7 @@
 #include "PCH.h"
 
+#include "Shader.h"
+
 void OnWindowResize(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -14,24 +16,6 @@ int main()
 {
 	const I32 windowWidth = 540;
 	const I32 windowHeight = 540;
-
-	const char* vertexShaderSource =
-		"#version 460 core\n"
-		"layout (location = 0) in vec3 inPosition;\n"
-		"layout (location = 1) in vec3 inColor;\n"
-		"out vec3 vertexColor;\n"
-		"void main()\n" 
-		"{\n" 
-		"	gl_Position = vec4(inPosition.x, inPosition.y, inPosition.z, 1.0);\n"
-		"	vertexColor = inColor;\n"
-		"}\0";
-
-	const char* fragmentShaderSource =
-		"#version 460 core\n"
-		"in vec3 vertexColor;\n"
-		"out vec4 fragmentColor;\n"
-		"void main() { fragmentColor = vec4(vertexColor, 1.0f); }\0";
-
 
 	glfwInit();
 
@@ -60,58 +44,7 @@ int main()
 		return -1;
 	}
 
-	U32 vertexShader;
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	{
-		I32 result;
-		char infoLog[512];
-		glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
-		if (!result)
-		{
-			glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-			printf("ERROR::SHADER::VERTEX Compilation Failed\n %s\n", infoLog);
-		}
-	}
-
-	U32 fragmentShader;
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	{
-		I32 result;
-		char infoLog[512];
-		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
-		if (!result)
-		{
-			glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-			printf("ERROR::SHADER::FRAGMENT Compilation Failed\n %s\n", infoLog);
-		}
-	}
-
-	U32 shaderProgram;
-	shaderProgram = glCreateProgram();
-
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	{
-		I32 result;
-		char infoLog[512];
-		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &result);
-		if (!result)
-		{
-			glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-			printf("ERROR::SHADER::PROGRAM Linking Failed\n %s\n", infoLog);
-		}
-	}
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	Shader shader = Shader("Resources/Shaders/sample.vert", "Resources/Shaders/sample.frag");
 
 	F32 vertices[] = 
 	{
@@ -156,7 +89,7 @@ int main()
 		glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(shaderProgram);
+		shader.Activate();
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, ARRAY_SIZE(indices), GL_UNSIGNED_INT, 0);
 
@@ -167,7 +100,7 @@ int main()
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
-	glDeleteProgram(shaderProgram);
+	shader.Delete();
 
 	glfwTerminate();
 
