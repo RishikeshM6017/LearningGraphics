@@ -2,6 +2,7 @@
 
 #include "PCH.h"
 
+#include "Instance.h"
 #include "Logger.h"
 
 class Renderer
@@ -14,5 +15,9 @@ private:
 	Logger* logger{ Logger::GetLogger() };
 
 	Window window;
+
+	Deque<Function<void()>> deletionQueue;
+
+	vk::Instance instance;
 };
 

@@ -1,10 +1,13 @@
 #pragma once
 
-#include <stdio.h>
+#define VULKAN_HPP_NO_EXCEPTIONS
 
+#include <iostream>
 #include <vector>
 #include <atomic>
 #include <thread>
+#include <deque>
+#include <functional>
 
 #include "vulkan/vulkan.hpp"
 #include "GLFW/glfw3.h"
@@ -25,6 +28,8 @@ using F64 = double;
 using B8  = bool;
 using B32 = uint32_t;
 
+using OutputStream = std::ostream;
+
 template <typename T>
 using Vector = std::vector<T>;
 
@@ -32,5 +37,11 @@ template <typename T>
 using Atomic = std::atomic<T>;
 
 using Thread = std::thread;
+
+template <typename T>
+using Deque = std::deque<T>;
+
+template <typename T>
+using Function = std::function<T>;
 
 using Window = GLFWwindow*;
