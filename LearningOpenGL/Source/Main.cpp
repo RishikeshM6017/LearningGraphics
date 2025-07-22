@@ -1,6 +1,9 @@
 #include "PCH.h"
 
 #include "Shader.h"
+#include "VBO.h"
+#include "EBO.h"
+#include "VAO.h"
 
 void OnWindowResize(GLFWwindow* window, int width, int height)
 {
@@ -49,10 +52,10 @@ int main()
 	F32 vertices[] = 
 	{
 		//VertexPositions		//VertexColors
-		 0.5f,  0.5f, 0.0f,		1.0f, 0.0f, 0.0f,	//TopRight
-		 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,	//BottomRight
-		-0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,	//BottomLeft
-		-0.5f,  0.5f, 0.0f,		0.0f, 0.0f, 0.0f	//TopLeft
+		 0.5f,  0.5f, 0.0f,		//1.0f, 0.0f, 0.0f,	//TopRight
+		 0.5f, -0.5f, 0.0f,		//0.0f, 1.0f, 0.0f,	//BottomRight
+		-0.5f, -0.5f, 0.0f,		//0.0f, 0.0f, 1.0f,	//BottomLeft
+		-0.5f,  0.5f, 0.0f,		//0.0f, 0.0f, 0.0f	//TopLeft
 	};
 
 	U32 indices[] =
@@ -61,24 +64,19 @@ int main()
 		1, 2, 3
 	};
 
-	U32 VAO, VBO, EBO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
+	
+	VAO vao;
+	vao.Bind();
 
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	VBO vbo(vertices, sizeof(vertices));
+	EBO ebo(indices, sizeof(indices));
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(F32), (void*)0);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(F32), (void*)(3 * sizeof(F32)));
-	glEnableVertexAttribArray(1);
+	vao.LinkVBO(vbo, 0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+	vao.Unbind();
+	vbo.Unbind();
+	ebo.Unbind();
+
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -90,16 +88,16 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		shader.Activate();
-		glBindVertexArray(VAO);
+		vao.Bind();
 		glDrawElements(GL_TRIANGLES, ARRAY_SIZE(indices), GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
+	vao.Delete();
+	vbo.Delete();
+	ebo.Delete();
 	shader.Delete();
 
 	glfwTerminate();
