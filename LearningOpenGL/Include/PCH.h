@@ -10,6 +10,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <GLM/glm.hpp>
+#include <STB/stb_image.h>
 
 using U8  = uint8_t;
 using U16 = uint16_t;
