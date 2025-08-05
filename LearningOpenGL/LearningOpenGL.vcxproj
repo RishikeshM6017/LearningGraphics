@@ -201,7 +201,7 @@
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\VAO.cpp" />
     <ClCompile Include="Source\VBO.cpp" />
-    <ClCompile Include="stb.c">
+    <ClCompile Include="Source\stb.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

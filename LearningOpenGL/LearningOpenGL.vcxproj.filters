@@ -54,7 +54,7 @@
     <ClCompile Include="Source\Platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stb.c">
+    <ClCompile Include="Source\stb.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
