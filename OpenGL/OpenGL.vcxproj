@@ -75,24 +75,32 @@
     <ExternalIncludePath>C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)Source;$(SourcePath)</SourcePath>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)Include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)Source;$(SourcePath)</SourcePath>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)Include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)Source;$(SourcePath)</SourcePath>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)Include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>C:\SDKs\GLFW\include;C:\SDKs\GLAD\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>C:\SDKs\GLFW\lib-vc2022;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)Source;$(SourcePath)</SourcePath>
+    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Configuration)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -101,6 +109,8 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +128,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +145,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +164,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SDKs\GLAD\include;C:\SDKs\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -160,7 +176,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\SDKs\GLAD\src\glad.c" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
